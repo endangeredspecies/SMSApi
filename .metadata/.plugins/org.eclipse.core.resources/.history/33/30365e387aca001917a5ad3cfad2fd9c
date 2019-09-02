@@ -1,0 +1,6 @@
+package com.smsapi.model;
+
+@JsonInclude(Include.NON_NULL)
+public class SMSApiResult {
+
+}

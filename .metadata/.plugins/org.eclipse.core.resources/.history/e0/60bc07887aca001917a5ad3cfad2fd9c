@@ -1,0 +1,6 @@
+package com.smsapi.model;
+
+
+public class SMSApiResult {
+
+}

@@ -1,0 +1,8 @@
+package com.smsapi.model;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(Include.NON_NULL)
+public class SMSApiResult {
+
+}

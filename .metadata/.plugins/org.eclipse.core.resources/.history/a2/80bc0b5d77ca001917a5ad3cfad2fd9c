@@ -1,0 +1,29 @@
+package com.smsapi.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.Api;
+
+@RestController
+@Api(tags="issues")
+public class SMSApiController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@RequestMapping(value = "/inbound/sms", method = RequestMethod.POST, produces = "application/json")
+	@ApiOperation(notes = "This API creates a Job that will process AppScan issues and push them into other issue management systems. "
+			+ "The job is completely controlled by the JSON that is passed in. The details of the JSON will vary depending on your target issue management system."
+			+ "To view configuration details, invoke the GET /providers API below and the details will be in the response", value = "Create a job to push AppScan issues to an issue management system")
+	PushJobResult postIssuesPushJobsV2(
+			@Valid @RequestBody @ApiParam(name = "body", required = true) PushJobData submitJobData) {
+		try {
+			new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(submitJobData);
+		} catch (Exception e) {
+			logger.error("Error parsing JSON", e);
+		}
+		return pushJobService.createPushJob(submitJobData);
+	}
+
+}

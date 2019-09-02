@@ -1,0 +1,26 @@
+package com.smsapi.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.smsapi.model.AccountDetails;
+import com.smsapi.model.entities.Account;
+import com.smsapi.repository.AccountRepository;
+
+public class AccountDetailsService implements UserDetailsService{
+	@Autowired
+	private AccountRepository accountRepository;
+	private Account account;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<Account> optionalAccount=accountRepository.findbyUsername(username);
+		optionalAccount.orElseThrow(() -> new UsernameNotFoundException("Username not found"))
+		return new AccountDetails(account);
+	}
+
+}

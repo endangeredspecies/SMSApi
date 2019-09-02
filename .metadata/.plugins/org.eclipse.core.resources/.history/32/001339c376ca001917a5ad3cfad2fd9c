@@ -1,0 +1,5 @@
+package com.smsapi.controller;
+
+public class SMSApiController {
+
+}

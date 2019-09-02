@@ -1,0 +1,32 @@
+package com.smsapi.service;
+
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.security.core.Authentication;
+
+import com.smsapi.model.SMSApiResult;
+import com.smsapi.model.SMSData;
+
+public class InboundService extends SMSApiService {
+
+	@Override
+	public SMSApiResult execute(SMSData data,Authentication authentication) {
+		if (!validateInput(data.getTo(), data.getFrom())) {
+			return new SMSApiResult("", "invalid input");
+		}
+		if (!isPresent(data.getTo(),authentication)) {
+			return new SMSApiResult("","to parameter not found");
+		}
+		if(data.getText().trim().equals("STOP")) {
+			redisTemplate.opsForHash().put("TOANDFROM",data.getTo()+data.getFrom(), data.getTo());
+			redisTemplate.expire("TOANDFROM", 4, TimeUnit.HOURS);
+		}
+		
+		if(redisTemplate.opsForHash().get("NOTALLOWED", data.getFrom())!=null) {
+			redisTemplate.opsForHash().put("NOTALLOWED", data.getFrom(), 1);
+			redisTemplate.expire("NOTALLOWED", 1, TimeUnit.DAYS);
+		}
+		return new SMSApiResult("inbound sms ok", "");
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.smsapi.service;
+
+import com.smsapi.model.SMSApiResult;
+
+public class InboundService extends SMSApiService {
+
+	@Override
+	public SMSApiResult execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

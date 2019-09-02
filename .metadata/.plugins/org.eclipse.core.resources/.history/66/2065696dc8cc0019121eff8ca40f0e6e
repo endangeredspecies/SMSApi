@@ -1,0 +1,10 @@
+package com.smsapi.model.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="phone_number")
+public class PhoneNumber {
+
+}

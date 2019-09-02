@@ -1,0 +1,75 @@
+package com.smsapi.service;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import com.smsapi.model.SMSApiResult;
+import com.smsapi.model.SMSData;
+import com.smsapi.model.entities.Account;
+import com.smsapi.model.entities.PhoneNumber;
+import com.smsapi.repository.AccountRepository;
+import com.smsapi.repository.PhoneNumberRepository;
+
+@Service
+public class SMSApiService {
+	@Autowired
+	private AccountRepository accountRepository;
+	@Autowired
+	private PhoneNumberRepository phoneNumberRepository; 
+	@Autowired 
+	private RedisTemplate<String, Object> redisTemplate;
+	
+	public List<Account> getAllAccount(){
+		return accountRepository.findAll();
+	}
+	
+	public SMSApiResult inboundService(SMSData data,Authentication authentication) {
+		if (!isPresent(data.getTo(),authentication)) {
+			return new SMSApiResult("","to parameter not found");
+		}
+		if(data.getText().trim().equals("STOP")) {
+			redisTemplate.opsForHash().put("TOANDFROM",data.getTo()+data.getFrom(), data.getTo());
+			redisTemplate.expire("TOANDFROM", 4, TimeUnit.HOURS);
+		}
+		
+		if(redisTemplate.opsForHash().get("NOTALLOWED", data.getFrom())!=null) {
+			redisTemplate.opsForHash().put("NOTALLOWED", data.getFrom(), 1);
+			redisTemplate.expire("NOTALLOWED", 1, TimeUnit.DAYS);
+		}
+		return new SMSApiResult("inbound sms ok", "");
+		
+	}
+	
+	public SMSApiResult outboundService(SMSData data,Authentication authentication) {
+		if (!isPresent(data.getFrom(),authentication)) {
+			return new SMSApiResult("","from parameter not found");
+		}
+		String value=(String)redisTemplate.opsForHash().get("TOANDFROM", data.getTo()+data.getTo());
+		if (value!=null && value.equals(data.getTo())) {
+			return new SMSApiResult("", "sms from" +data.getFrom()+" to "+data.getTo()+" blocked by STOP request");
+		}
+		return new SMSApiResult("outbound sms ok", "");
+	}
+	
+	public boolean isPresent(String number, Authentication authentication) {
+		
+		int accountId;
+		String username=authentication.getName();
+		accountId=accountRepository.findByUsername(username).getId();
+		List<PhoneNumber> numbers=phoneNumberRepository.findByAccountId(accountId);
+		for (PhoneNumber num:numbers) {
+			if (num.getNumber().equals(number)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.smsapi.model;
+
+import io.swagger.annotations.ApiModel;
+
+@ApiModel
+public class SMSData {
+	@Valid
+	private String from;
+	@Valid
+	private String to;
+	@Valid
+	private String text;
+}

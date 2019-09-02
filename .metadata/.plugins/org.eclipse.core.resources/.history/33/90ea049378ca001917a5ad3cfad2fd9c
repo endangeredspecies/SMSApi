@@ -1,0 +1,18 @@
+package com.smsapi.model;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
+import io.swagger.annotations.ApiModel;
+
+@ApiModel
+public class SMSData {
+	@Valid
+	@NotBlank
+	@ApiModelProperty(position = 1, required = true, value = "The Provider of appscan product . example : for Appscan Enterprise it is ASE , for Appscan on Cloud it is ASOC.")
+	private String from;
+	@Valid
+	private String to;
+	@Valid
+	private String text;
+}

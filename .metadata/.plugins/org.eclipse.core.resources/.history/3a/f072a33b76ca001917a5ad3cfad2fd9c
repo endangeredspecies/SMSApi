@@ -1,0 +1,26 @@
+package com.smsapi;
+
+@Component
+public class Messages {
+	
+    private ReloadableResourceBundleMessageSource messageSource;
+    
+    public String getMessage(String id) {
+    	String message = null;
+    	try {
+    		message = getMessageSource().getMessage(id,null,LocaleContextHolder.getLocale());
+    	} catch (NoSuchMessageException e) {
+    		message = getMessageSource().getMessage(id,null,Locale.ROOT);
+    	}
+        return message;
+    }
+    
+	public ReloadableResourceBundleMessageSource getMessageSource() {
+		if (messageSource == null) {
+			messageSource = new ReloadableResourceBundleMessageSource();
+		    messageSource.setBasename("classpath:/i18n/messages");
+		    messageSource.setCacheMillis(5000);
+		}
+	    return messageSource;
+	}
+}

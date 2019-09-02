@@ -1,0 +1,24 @@
+package com.smsapi.service;
+
+import com.smsapi.model.SMSApiResult;
+
+public class OutboundService extends SMSApiService {
+
+	@Override
+	public SMSApiResult execute() {
+		if (!validateInput(data.getTo(), data.getFrom())) {
+			return new SMSApiResult("", "invalid input");
+		}
+		
+		if (!isPresent(data.getFrom(),authentication)) {
+			return new SMSApiResult("","from parameter not found");
+		}
+		String value=(String)redisTemplate.opsForHash().get("TOANDFROM", data.getTo()+data.getTo());
+		if (value!=null && value.equals(data.getTo())) {
+			return new SMSApiResult("", "sms from" +data.getFrom()+" to "+data.getTo()+" blocked by STOP request");
+		}
+		return new SMSApiResult("outbound sms ok", "");
+	}
+	
+
+}

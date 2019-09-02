@@ -1,0 +1,5 @@
+package com.smsapi;
+
+public class SwaggerConfiguration {
+
+}

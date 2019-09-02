@@ -1,0 +1,18 @@
+package com.smsapi.model.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="account")
+class Account {
+	@Id
+	private int id;
+	@Column(name="auth_id")
+	private String authId;
+	private String username;
+	
+	
+}

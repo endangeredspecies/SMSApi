@@ -1,0 +1,21 @@
+package com.smsapi.model;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
+public class SMSData {
+	@Valid
+	@NotBlank
+	@ApiModelProperty(position = 1, required = true, value = "from (string min length 6 max length 16) .example : 91983435345.")
+	private String from;
+	@Valid
+	@NotBlank
+	@ApiModelProperty(position = 2, required = true, value = "from (string min length 6 max length 16) .example : 91983435345.")
+	private String to;
+	@Valid
+	private String text;
+}

@@ -1,0 +1,7 @@
+package com.smsapi.model;
+
+
+public class SMSApiResult {
+	private String message;
+	private String error;
+}

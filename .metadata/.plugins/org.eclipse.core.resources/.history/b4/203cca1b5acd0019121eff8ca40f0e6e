@@ -1,0 +1,9 @@
+package com.smsapi.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.smsapi.model.entities.PhoneNumber;
+
+public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, Integer> {
+
+}

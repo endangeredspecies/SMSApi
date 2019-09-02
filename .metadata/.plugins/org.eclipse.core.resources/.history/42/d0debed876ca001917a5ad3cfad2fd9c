@@ -1,0 +1,9 @@
+package com.smsapi.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@Api(tags="issues")
+public class SMSApiController {
+
+}

@@ -1,0 +1,13 @@
+package com.smsapi.authentication;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.smsapi.model.entities.Account;
+import com.smsapi.repository.AccountRepository;
+
+@EnableJpaRepositories(basePackageClasses=AccountRepository.class)
+@Configuration
+public class SecurityConfiguration {
+
+}

@@ -1,0 +1,10 @@
+package com.smsapi.model.entities;
+
+import javax.persistence.Entity;
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@Entity
+class Account {
+
+}

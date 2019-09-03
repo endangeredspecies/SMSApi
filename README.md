@@ -5,14 +5,28 @@ This API allows you to validate the SMS inbound and outbound request.
 ## Prerequisites
 
 - A Java 8 Runtime
-- Postgres DB
+- Postgres DB load the schema.sql
 - Redis for windows
+
+NOTE : if the configuration of postgres DB and redis is not same as below then , application.properties will have to be changed accordingly and create the service jar using 
+
+```sh
+mvn clean package
+```
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/testDB
+spring.datasource.username=postgres
+spring.datasource.password=welcome1
+
+spring.redis.port=6379
+spring.redis.password=password
+spring.redis.host=localhost
 
 ## Getting Started
 
 To use the SMS Api service, perform the following:
 
-Download “Service” from <https://github.com/endangeredspecies/SMSApi/releases> and extract its content to a location on your computer.
+Download “Service” from <https://github.com/endangeredspecies/SMSApi/releases> and extract its content to a location on your computer.(OR you can build your own jar after downloading the source code)
 
 Run the following command to start the service on the default port (8080):
 
@@ -36,6 +50,7 @@ The service provides two resources:
 2. POST /SMS/outbound- 
 
 ==========================================
+
 TO Test the Api
 
 the service can be tested in 3 ways :
@@ -76,8 +91,8 @@ it should not allow to login
 
 2. valid username and passoword
 
-azr1
-20S0KPNOIM 
+username :azr1
+passowrd : 20S0KPNOIM 
 
 succesful login
 
@@ -201,7 +216,8 @@ using /SMS/outbound-
 
 similary other cases can be run based on the requirement.
 ## Limitations:
--password protection and encryption not used 
+-password protection and encryption not used
+ 
 -many more
 ## License
 

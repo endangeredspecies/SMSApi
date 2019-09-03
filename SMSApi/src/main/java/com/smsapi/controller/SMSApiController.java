@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,15 +22,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @RestController
-@Api(tags="issues")
+@Api(tags="SMS")
 public class SMSApiController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	//@Autowired
 	//private SMSApiService service;
 	@Autowired
 	private InboundService inboundService;
+	
 	@Autowired
 	private OutboundService outboundService;
+	
 	@RequestMapping(value = "/inbound/sms", method = RequestMethod.POST, produces = "application/json")
 	@ApiOperation(notes = "TODO",value="TODO")
 	SMSApiResult smsInbound(
@@ -61,10 +62,10 @@ public class SMSApiController {
 //		return service.getAllAccount(); 
 //	}
 	
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
-	@ResponseBody
-	public String currentUserName(Authentication authentication) {
-	     return authentication.getName();
-	}
+//	@RequestMapping(value = "/username", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String currentUserName(Authentication authentication) {
+//	     return authentication.getName();
+//	}
 
 }

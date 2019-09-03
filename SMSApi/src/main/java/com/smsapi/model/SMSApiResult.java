@@ -1,7 +1,12 @@
 package com.smsapi.model;
 
+import java.io.Serializable;
 
-public class SMSApiResult {
+public class SMSApiResult implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String message;
 	private String error;
 	

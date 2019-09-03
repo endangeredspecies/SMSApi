@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
-			
+			// Not using any password encoder for this assignment so plain string comparison
 			@Override
 			public String encode(CharSequence rawPassword) {
 				return rawPassword.toString();

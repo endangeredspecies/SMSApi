@@ -1,5 +1,7 @@
 package com.smsapi.model;
 
+import java.io.Serializable;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -7,7 +9,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel
-public class SMSData {
+public class SMSData implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Valid
 	@NotBlank
 	@ApiModelProperty(position = 1, required = true, value = "from (string min length 6 max length 16) .example : 91983435345.")

@@ -35,7 +35,7 @@ The service provides two resources:
 1. POST /SMS/inbound- 
 2. POST /SMS/outbound- 
 
-==========================================================================================================================================
+================================================================================================
 TO Test the Api
 
 the serive can be tested in 3 ways :
@@ -46,8 +46,13 @@ the serive can be tested in 3 ways :
 The following curl helps you submit jobs to the service: (the format need to be changed based on OS you are using)
 
 ```sh
-curl http://localhost:8080/SMS/inbound -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d @test.json
+curl -u azr1:20S0KPNOIM http://localhost:7777/inbound/sms -H "Content-Type: application/json" -H "Accept: application/json" -X POST -d @test.json
 ```
+
+this command gives the output :
+
+{"message":"inbound sms ok","error":""}
+
 
 This command uses a JSON file.Refer the following example:
 
@@ -196,6 +201,7 @@ using /SMS/outbound-
 }
 
 
+similary other cases can be run based on the requirement.
 ## Limitations:
 -password protection and encryption not used 
 -many more

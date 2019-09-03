@@ -15,11 +15,15 @@ mvn clean package
 ```
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/testDB
+
 spring.datasource.username=postgres
+
 spring.datasource.password=welcome1
 
 spring.redis.port=6379
+
 spring.redis.password=password
+
 spring.redis.host=localhost
 
 ## Getting Started
@@ -97,6 +101,7 @@ passowrd : 20S0KPNOIM
 succesful login
 
 =======================================================
+
 **SMS/inbound**: 
 
 3. "to" valid , "from" invalid :

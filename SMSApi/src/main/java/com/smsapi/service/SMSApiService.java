@@ -1,14 +1,10 @@
 package com.smsapi.service;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
 
 import com.smsapi.model.SMSApiResult;
 import com.smsapi.model.SMSData;
@@ -33,15 +29,33 @@ public abstract class SMSApiService {
 	public abstract SMSApiResult execute(SMSData data,Authentication authentication);
 	
 	
-	public boolean validateInput(String to, String from) {
+	public String validateInput(String to, String from, String text) {
+		
+		if (to.length()<6 || to.length()>16) {
+			return "to length should be between 6 and 16";
+		}
+		if (from.length()<6 || from.length()>16) {
+			return "from length should be between 6 and 16";
+		}
+		if (text.length()<1 || from.length()>120) {
+			return "text should have min 1 and max 120 characters";
+		}
+		
 		PhoneNumber toNumber=phoneNumberRepository.findByNumber(to);
 		if (toNumber!=null) {
 			PhoneNumber fromNumber=phoneNumberRepository.findByNumber(from);
-			if (fromNumber!=null) {
-				return true;
+			if (fromNumber==null) {
+				return "from parameter is invalid";
 			}
+			else {
+				return null;
+			}
+			
 		}
-		return false;
+		else {
+			return "to parameter is invalid";
+		}
+		
 	}
 	public boolean isPresent(String number, Authentication authentication) {
 		

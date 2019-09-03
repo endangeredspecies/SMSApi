@@ -1,7 +1,5 @@
 package com.smsapi.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -17,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smsapi.model.SMSApiResult;
 import com.smsapi.model.SMSData;
-import com.smsapi.model.entities.Account;
 import com.smsapi.service.InboundService;
 import com.smsapi.service.OutboundService;
-import com.smsapi.service.SMSApiService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

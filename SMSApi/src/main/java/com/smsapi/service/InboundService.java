@@ -13,8 +13,9 @@ public class InboundService extends SMSApiService {
 
 	@Override
 	public SMSApiResult execute(SMSData data,Authentication authentication) {
-		if (!validateInput(data.getTo(), data.getFrom())) {
-			return new SMSApiResult("", "invalid input");
+		String validate=validateInput(data.getTo(), data.getFrom(), data.getText());
+		if (validate!=null) {
+			return new SMSApiResult("", validate);
 		}
 		if (!isPresent(data.getTo(),authentication)) {
 			return new SMSApiResult("","to parameter not found");

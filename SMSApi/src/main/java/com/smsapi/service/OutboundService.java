@@ -2,7 +2,6 @@ package com.smsapi.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.smsapi.model.SMSApiResult;
 import com.smsapi.model.SMSData;
@@ -11,8 +10,9 @@ public class OutboundService extends SMSApiService {
 
 	@Override
 	public SMSApiResult execute(SMSData data,Authentication authentication) {
-		if (!validateInput(data.getTo(), data.getFrom())) {
-			return new SMSApiResult("", "invalid input");
+		String validate=validateInput(data.getTo(), data.getFrom(), data.getText());
+		if (validate!=null) {
+			return new SMSApiResult("", validate);
 		}
 		
 		if (!isPresent(data.getFrom(),authentication)) {

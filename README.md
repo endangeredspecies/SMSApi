@@ -35,10 +35,10 @@ The service provides two resources:
 1. POST /SMS/inbound- 
 2. POST /SMS/outbound- 
 
-================================================================================================
+==========================================
 TO Test the Api
 
-the serive can be tested in 3 ways :
+the service can be tested in 3 ways :
 
 1. from the swagger UI
 2. Postman client
@@ -66,7 +66,7 @@ test.json:
 }
 ```
 
-==========================================================================================
+=======================================
 
 SOME OF THE TESTS THAT I RAN AND THE OUTPUT THAT I GOT:
 
@@ -81,10 +81,8 @@ azr1
 
 succesful login
 
-
+=======================================================
 **SMS/inbound**: 
-
-=======================================
 
 3. "to" valid , "from" invalid :
 
@@ -101,7 +99,9 @@ output :
   "message": "",
   "error": "from length should be between 6 and 16"
 }
-=============================================
+
+
+
 4. "from" valid and "to" invalid
 {
   "from": "4924195509198",
@@ -114,11 +114,11 @@ output :
   "message": "",
   "error": "to length should be between 6 and 16"
 }
-===================================================
+
+
 5. required parameter not present  : I have check of NotNull in the model class so it will not hit the service and throw the error much before.
 
 
-==================================================
 6. length fine but parameter invalid (not present in the DB)
 
 {
@@ -135,7 +135,7 @@ output :
   "error": "from parameter is invalid"
 }
 
-=====================================
+
 7. both to and from are present but to doesnt belong to account which is currently logged in :
 
 {
@@ -150,7 +150,8 @@ output :
   "message": "",
   "error": "to parameter not found"
 }
-========================================================
+
+
 8. all valid :
 {
   "from": "441224980094",
@@ -165,12 +166,9 @@ output:
   "error": ""
 }
 
-===============================================================
+========================================
 
- 
-
-
-**SMSOutbound**: configuration required to connect to the Issue Management system (JIRA in this case)
+**SMSOutbound**:
 
 9. STOP case
 using /SMS/inbound
